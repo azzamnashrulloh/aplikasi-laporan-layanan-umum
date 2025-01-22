@@ -30,10 +30,31 @@ h6 {
   display: flex;
   flex-direction: row;
 }
+.nav-btn {
+  margin: 0px 10px;
+}
+
+form {
+  min-width: min-content;
+  margin: 0px auto;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+}
 
 .textBox {
-  min-width: 300px;
-  max-width: 300px;
+  min-width: 30vw;
+  max-width: 60vw;
   min-height: 100px;
   field-sizing: content;
+  margin: 10px auto;
+  font-size: 20px;
+  font-family: Cambria;
+}
+
+.Heading {
+  margin: 10px auto;
+}
+.description {
+  margin: 5px auto;
 }

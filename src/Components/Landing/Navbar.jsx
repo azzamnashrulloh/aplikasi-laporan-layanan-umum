@@ -1,9 +1,13 @@
-const Navbar =  ({navigate}) => {
-return(
-<div className="navbar">
-        <button onClick={() => navigate("/")}>Home</button>
-        <button onClick={() => navigate("/About")}>About</button>
-      </div>
-)
-}
-export default Navbar
+const Navbar = ({ navigate }) => {
+  return (
+    <div className="navbar">
+      <a className="nav-btn" onClick={() => navigate("/")}>
+        Home
+      </a>
+      <a className="nav-btn" onClick={() => navigate("/About")}>
+        About
+      </a>
+    </div>
+  );
+};
+export default Navbar;
