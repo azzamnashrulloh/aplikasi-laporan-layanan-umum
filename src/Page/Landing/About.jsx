@@ -1,8 +1,6 @@
 import { useState } from "react";
-import Heading from "../../Components/Landing/Heading";
 
 const About = () => {
-  const [titles, updateTitle] = useState("About");
-  return <Heading title={titles} />;
+  return <h1>ini halaman about</h1>;
 };
 export default About;
