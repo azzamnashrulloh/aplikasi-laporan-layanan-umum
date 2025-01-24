@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Home = () => {
-  const [text, setText] = useState(""); // State untuk input teks
+const Home = ({ navigate }) => {
   const [reports, setReports] = useState([]); // State untuk data laporan
 
   // Fungsi untuk memuat data dari JSON Server
@@ -19,83 +18,52 @@ const Home = () => {
     fetchReports();
   }, []);
 
-  // Fungsi untuk mengirim data ke JSON Server
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!text) {
-      alert("Keterangan tidak boleh kosong!");
-      return;
-    }
-
-    const newReport = {
-      description: text,
-      date: new Date().toLocaleString("id-ID"), // Tanggal saat ini dalam format lokal
-    };
-
-    try {
-      const response = await fetch("http://localhost:3001/reports", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newReport),
-      });
-
-      if (response.ok) {
-        const addedReport = await response.json();
-        setReports([...reports, addedReport]); // Perbarui state dengan laporan baru
-        setText(""); // Reset input
-      } else {
-        alert("Gagal mengirim laporan.");
+  // Scroll ke elemen berdasarkan hash URL
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-    } catch (error) {
-      console.error("Gagal mengirim laporan:", error);
     }
-  };
+  }, []);
 
   return (
     <>
-      <h1 className="Heading">
-        Selamat datang di Aplikasi Pelaporan Layanan Umum Masyarakat
-      </h1>
-      <p className="description">
+      <span className="text-5xl text-left font-bold ml-20 mt-[20vh] my-3 text-white">
+        Selamat datang di Aplikasi <br />
+        Pelaporan Layanan Umum Masyarakat
+      </span>
+      <p className="text-left ml-20 text-white">
         Platform modern untuk melaporkan dan memantau permasalahan layanan umum
         masyarakat secara cepat, mudah, dan transparan.
       </p>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          className="textBox"
-          type="text"
-          placeholder="Tuliskan laporan Anda..."
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-        <div className="ml-auto">
-          <button
-            className="bg-green-500 text-white px-3 py-1 rounded-md"
-            type="submit"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-      <table className="w-1/2 border border-gray-300 border-collapse mx-auto text-left mt-20">
+      <button
+        onClick={() => navigate("/form")}
+        className="ml-20 mt-5 text-nowrap text-black font-bold p-2 rounded-md bg-gradient-to-r from-blue-100 via-blue-300 to-blue-500 w-[min-content]"
+      >
+        Mulai Memberikan Laporan
+      </button>
+      <hr className="mt-[10%]" />
+      <span className="mx-auto mt-2 text-white text-2xl font-medium">
+        Daftar Laporan
+      </span>
+      <table
+        id="daftarlaporan"
+        className="border-collapse w-1/2 mt-2 mb-[20px] mx-auto text-left text-black mt-20 bg-white rounded-xl overflow-hidden shadow-xl"
+      >
         <thead>
           <tr>
-            <th className="border border-gray-300 px-4 py-2">Tanggal</th>
-            <th className="border border-gray-300 px-4 py-2">Keterangan</th>
+            <th className="border-b-2 px-4 py-4">Waktu pelaporan</th>
+            <th className="border-b-2 px-4 py-4">Keterangan</th>
           </tr>
         </thead>
         <tbody>
           {reports.map((report, index) => (
-            <tr key={index} className="border border-gray-300">
-              <td className="border border-gray-300 px-4 py-2">
-                {report.date}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {report.description}
-              </td>
+            <tr key={index} className="hover:bg-gray-100 hover:cursor-pointer">
+              <td className="px-4 py-4 border-r-2 border-b-2">{report.date}</td>
+              <td className="px-4 py-4 border-b-2">{report.description}</td>
             </tr>
           ))}
         </tbody>

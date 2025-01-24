@@ -25,6 +25,13 @@ h6 {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+#daftarlaporan {
+  scroll-margin-top: 100px; /* Sesuaikan jarak sesuai kebutuhan */
 }
 
 .navbar {
@@ -52,6 +59,8 @@ form {
   margin: 10px auto;
   font-size: 15px;
   border: 1px solid lightgray;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
 .Heading {
