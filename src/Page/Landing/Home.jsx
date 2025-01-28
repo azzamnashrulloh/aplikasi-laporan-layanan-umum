@@ -46,23 +46,29 @@ const Home = ({ navigate }) => {
         Mulai Memberikan Laporan
       </button>
       <hr className="mt-[10%]" />
-      <span className="mx-auto mt-2 text-white text-2xl font-medium">
+      <span className="mx-auto mt-[5vh] text-white text-2xl font-medium">
         Daftar Laporan
       </span>
       <table
         id="daftarlaporan"
-        className="border-collapse w-1/2 mt-2 mb-[20px] mx-auto text-left text-black mt-20 bg-white rounded-xl overflow-hidden shadow-xl"
+        className="border-collapse w-[92vw] mt-2 mb-[20px] mx-auto text-left text-black mt-20 bg-white rounded-xl overflow-hidden shadow-xl"
       >
         <thead>
           <tr>
+            <th className="border-b-2 px-4 py-4">Email</th>
             <th className="border-b-2 px-4 py-4">Waktu pelaporan</th>
+            <th className="border-b-2 px-4 py-4">Pelapor</th>
             <th className="border-b-2 px-4 py-4">Keterangan</th>
           </tr>
         </thead>
         <tbody>
           {reports.map((report, index) => (
             <tr key={index} className="hover:bg-gray-100 hover:cursor-pointer">
+              <td className="px-4 py-4 border-r-2 border-b-2">
+                {report.email}
+              </td>
               <td className="px-4 py-4 border-r-2 border-b-2">{report.date}</td>
+              <td className="px-4 py-4 border-r-2 border-b-2">{report.name}</td>
               <td className="px-4 py-4 border-b-2">{report.description}</td>
             </tr>
           ))}

@@ -9,7 +9,7 @@ const Navbar = ({ navigate }) => {
     <div className="navbar text-white">
       <a
         className={`nav-btn hover:cursor-pointer ${
-          isActive("/") ? "border-b-2 border-white" : ""
+          isActive("/") || isActive("/home") ? "border-b-2 border-white" : ""
         }`}
         onClick={() => navigate("/")}
       >
