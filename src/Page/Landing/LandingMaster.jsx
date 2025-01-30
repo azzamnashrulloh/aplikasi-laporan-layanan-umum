@@ -1,6 +1,6 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import About from "./About";
-import Home from "./Home.Jsx";
+import Home from "./Home.jsx";
 import "../../assets/css/landing.css";
 import Navbar from "../../Components/Landing/Navbar";
 import Form from "./Form";

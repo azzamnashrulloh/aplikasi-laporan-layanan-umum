@@ -7,7 +7,7 @@ const Home = ({ navigate }) => {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const response = await fetch("http://localhost:3001/reports");
+        const response = await fetch("http://localhost:5000/reports");
         const data = await response.json();
         setReports(data);
       } catch (error) {

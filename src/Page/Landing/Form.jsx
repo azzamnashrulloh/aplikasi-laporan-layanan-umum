@@ -6,12 +6,18 @@ const Form = ({ navigate }) => {
   // Fungsi untuk memeriksa email unik dari JSON Server
   const checkUniqueEmail = async (email) => {
     try {
-      const response = await fetch("http://localhost:3001/reports");
+      const response = await fetch("http://localhost:5000/reports");
+      if (!response.ok) {
+        console.error("Failed to fetch reports");
+        return false;
+        console.log("Email diperiksa:", email, "Hasil:", result);
+      }
       const reports = await response.json();
-      return !reports.some((report) => report.email === email); // Kembalikan true jika email tidak ditemukan
+      // Kembalikan true jika email tidak ditemukan
+      return !reports.some((report) => report.email === email);
     } catch (error) {
       console.error("Error checking email uniqueness:", error);
-      return false; // Anggap email tidak unik jika gagal memeriksa
+      return false; // Jika terjadi kesalahan, anggap email tidak unik
     }
   };
 
@@ -24,15 +30,15 @@ const Form = ({ navigate }) => {
     email: Yup.string()
       .email("Format email tidak valid")
       .required("Email wajib diisi")
-      .test("unique-email", "Email sudah digunakan", async (value) => {
-        if (!value) return true; // Skip jika email kosong (error lain akan menangani)
-        return await checkUniqueEmail(value);
+      .test("unique-email", "Email sudah digunakan", function (value) {
+        if (!value) return true; // Skip validasi jika email kosong
+        return checkUniqueEmail(value);
       }),
     description: Yup.string()
       .max(500, "Deskripsi tidak boleh lebih dari 500 karakter")
       .required("Deskripsi wajib diisi"),
   });
-
+  
   // Inisialisasi Formik
   const formik = useFormik({
     initialValues: {
@@ -52,7 +58,7 @@ const Form = ({ navigate }) => {
 
       // Kirim data ke JSON Server
       try {
-        const response = await fetch("http://localhost:3001/reports", {
+        const response = await fetch("http://localhost:5000/reports", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
